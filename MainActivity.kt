@@ -11,15 +11,16 @@ import androidx.compose.ui.Modifier
 import com.rickAndMorty.list.feature.presentation.ListViewModel
 import com.rickAndMorty.list.feature.ui.CharactersList
 import com.rickAndMorty.list.model.GetCharactersUseCase
-import com.rickAndMorty.shared.model.FakeCharacters
+import com.rickAndMorty.shared.infraestructure.CharacterImpl
 import com.rickAndMorty.ui.theme.RickAndMortyTheme
 
 class MainActivity : ComponentActivity() {
-    private val presenter = ListViewModel(GetCharactersUseCase(FakeCharacters()))
+    private val presenter = ListViewModel(GetCharactersUseCase(CharacterImpl()))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter.setup()
+
         enableEdgeToEdge()
         setContent {
             RickAndMortyTheme {
