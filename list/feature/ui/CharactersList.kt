@@ -19,9 +19,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.rickAndMorty.shared.model.Character
+import coil.compose.SubcomposeAsyncImage
 import com.rickAndMorty.list.feature.presentation.ListPresenter
 import com.rickAndMorty.list.feature.presentation.ListPresenterPreview
+import com.rickAndMorty.shared.model.Character
 
 @Composable
 fun CharactersList(
@@ -54,7 +55,7 @@ private fun LoadingCard() = Surface(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Box(Modifier.size(120.dp).background(MaterialTheme.colorScheme.primary))
+            LoadingBox()
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
@@ -77,7 +78,12 @@ private fun CharacterCard(character: Character) = Surface(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Box(Modifier.size(120.dp).background(MaterialTheme.colorScheme.primary))
+            SubcomposeAsyncImage(
+                loading = { LoadingBox() },
+                error = { ImageError() },
+                model = character.imageUrl,
+                contentDescription = null
+            )
             Column {
                 Text(character.name)
                 Text(character.status)
@@ -85,6 +91,12 @@ private fun CharacterCard(character: Character) = Surface(
         }
     }
 }
+
+@Composable
+private fun LoadingBox() = Box(Modifier.size(120.dp).background(MaterialTheme.colorScheme.primary))
+
+@Composable
+private fun ImageError() = Box(Modifier.size(120.dp).background(MaterialTheme.colorScheme.error))
 
 @Preview
 @Composable

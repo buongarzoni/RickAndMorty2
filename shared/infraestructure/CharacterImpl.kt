@@ -17,7 +17,12 @@ class CharacterImpl : Characters {
     override suspend fun getAll(): List<Character>? {
         val response = api.getCharacters()
         return if (response.isSuccessful) {
-            response.body()?.toModel()
+            val result = response.body()?.toModel()
+            if (result != null) {
+                listOf(Character("Not Found character", "Dead", "")) + result
+            } else {
+                result
+            }
         } else {
             null
         }
