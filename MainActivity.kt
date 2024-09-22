@@ -7,41 +7,26 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.rickAndMorty.list.feature.presentation.ListViewModel
+import com.rickAndMorty.list.feature.ui.CharactersList
+import com.rickAndMorty.list.model.GetCharactersUseCase
+import com.rickAndMorty.shared.model.FakeCharacters
 import com.rickAndMorty.ui.theme.RickAndMortyTheme
 
 class MainActivity : ComponentActivity() {
+    private val presenter = ListViewModel(GetCharactersUseCase(FakeCharacters()))
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        presenter.setup()
         enableEdgeToEdge()
         setContent {
             RickAndMortyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    CharactersList(presenter, Modifier.padding(innerPadding))
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    RickAndMortyTheme {
-        Greeting("Android")
     }
 }

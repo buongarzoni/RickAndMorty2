@@ -1,6 +1,6 @@
-package com.rickAndMorty.list.feature.domain
+package com.rickAndMorty.shared.model
 
-data class CharacterUI(
+data class Character(
     val name: String,
     val status: String,
     val imageUrl: String,

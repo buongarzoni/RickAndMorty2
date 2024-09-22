@@ -1,8 +1,8 @@
 package com.rickAndMorty.list.feature.presentation
 
 import androidx.compose.runtime.State
-import com.rickAndMorty.list.feature.domain.CharacterUI
+import com.rickAndMorty.shared.model.Character
 
 interface ListPresenter {
-    val characters: State<List<CharacterUI>?>
+    val characters: State<List<Character>?>
 }

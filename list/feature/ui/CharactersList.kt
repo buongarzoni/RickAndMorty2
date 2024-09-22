@@ -19,14 +19,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.rickAndMorty.list.feature.domain.CharacterUI
+import com.rickAndMorty.shared.model.Character
 import com.rickAndMorty.list.feature.presentation.ListPresenter
 import com.rickAndMorty.list.feature.presentation.ListPresenterPreview
 
 @Composable
 fun CharactersList(
     presenter: ListPresenter,
-) = LazyColumn {
+    modifier: Modifier = Modifier,
+) = LazyColumn(
+    modifier = modifier,
+) {
     val characters = presenter.characters.value
 
     if(characters == null) {
@@ -63,7 +66,7 @@ private fun LoadingCard() = Surface(
 }
 
 @Composable
-private fun CharacterCard(characterUI: CharacterUI) = Surface(
+private fun CharacterCard(character: Character) = Surface(
     modifier = Modifier.fillMaxWidth(),
 ) {
     Column(
@@ -76,8 +79,8 @@ private fun CharacterCard(characterUI: CharacterUI) = Surface(
         ) {
             Box(Modifier.size(120.dp).background(MaterialTheme.colorScheme.primary))
             Column {
-                Text(characterUI.name)
-                Text(characterUI.status)
+                Text(character.name)
+                Text(character.status)
             }
         }
     }
@@ -92,12 +95,12 @@ fun LoadingCharactersPreview() = CharactersList(ListPresenterPreview())
 fun CharactersPreview() = CharactersList(
     ListPresenterPreview(
         characters = listOf(
-            CharacterUI(
+            Character(
                 name = "Pepe",
                 status = "Alive",
                 imageUrl = "www.google.com",
             ),
-            CharacterUI(
+            Character(
                 name = "Pepe 2",
                 status = "dead",
                 imageUrl = "www.google.com",
